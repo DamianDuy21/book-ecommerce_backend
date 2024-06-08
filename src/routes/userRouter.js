@@ -24,6 +24,7 @@ userRouter.post("/avatar", postUploadAvatar)
 //         email: "admin",
 //         password: 123456,
 //         username: "Admin",
+//         phone: ""
 //         avatar: "",
 //         role: "ADMIN",
 //         lastAccess: Date.now(),
