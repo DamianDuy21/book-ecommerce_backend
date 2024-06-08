@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const configStaticFiles = require('./config/staticFiles');
 const userRouter = require('./routes/userRouter');
 const connection = require('./config/database');
@@ -7,6 +8,7 @@ require("dotenv").config()
 
 
 const app = express()
+app.use(cors())
 const port = process.env.PORT || 8081
 const hostname = process.env.HOST_NAME || "localhost";
 
