@@ -112,7 +112,7 @@ const putEditUser = async (req, res) => {
                 avatarURL = response.path
             }
         }
-        const response = await User.findOneAndUpdate({ _id: req.body._id },
+        const response = await User.findOneAndUpdate({ _id: req.params.id },
             {
                 email: newUser.email,
                 password: newUser.password,

@@ -12,7 +12,7 @@ userRouter.get("/authen", getAuthenUser)
 //custome user
 userRouter.get("/", getAllUsers)
 userRouter.post("/", postCreateUser)
-userRouter.put("/", putEditUser)
+userRouter.put("/:id", putEditUser)
 userRouter.delete("/", deleteUser)
 
 //upload avatar
