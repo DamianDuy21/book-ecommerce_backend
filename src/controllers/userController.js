@@ -182,6 +182,6 @@ const postUploadAvatars = async (req, res) => {
 
 
 module.exports = {
-    getUserByID, postCreateUser, getAllUsers, putEditUser, deleteUser, postUploadAvatar, postUploadAvatars,
+    postCreateUser, getAllUsers, putEditUser, deleteUser, postUploadAvatar, postUploadAvatars,
     getAuthenUser
 }
