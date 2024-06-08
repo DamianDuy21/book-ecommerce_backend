@@ -24,7 +24,7 @@ const connection = async () => {
         pass: process.env.DB_PASSWORD,
         dbName: process.env.DB_NAME
     }
-    await mongoose.connect('mongodb://localhost:27018', options);
+    await mongoose.connect('mongodb+srv://cluster0.kmkypja.mongodb.net/', options);
     const state = Number(mongoose.connection.readyState);
     console.log(dbState.find(f => f.value == state).label, "to db"); // connected to db
 }
