@@ -35,10 +35,10 @@ const getAllUsers = async (req, res) => {
 
 }
 const getAuthenUser = async (req, res) => {
-    const type = req.body.type
-    if (type == 1) {
-        const email = req.body.email
-        const password = req.body.password
+    const { filter } = aqp(req.query);
+    if (filter.type == 1) {
+        const email = filter.email
+        const password = filter.password
         const response = await User.find({ email: email, password: password })
         if (response) {
             res.status(200).json({
@@ -54,8 +54,8 @@ const getAuthenUser = async (req, res) => {
         }
 
     }
-    else if (type == 2) {
-        const email = req.body.email
+    else if (filter.type == 2) {
+        const email = filter.email
         const response = await User.find({ email: email })
         if (response) {
             res.status(200).json({
