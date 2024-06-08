@@ -2,14 +2,13 @@ const User = require("../middleware/models/userModel")
 const aqp = require("api-query-params")
 const { uploadSingleFile, uploadMultipleFile } = require("../services/filesService")
 
-const getUser = (req, res) => {
+const getUserByID = (req, res) => {
     res.send("a user")
 }
 const getAllUsers = async (req, res) => {
 
     const { filter, skip, limit, sort, projection, population } = aqp(req.query);
     let response = null
-
 
     if (limit && filter.page) {
         let skip = (filter.page - 1) * limit
@@ -41,10 +40,36 @@ const getAuthenUser = async (req, res) => {
         const email = req.body.email
         const password = req.body.password
         const response = await User.find({ email: email, password: password })
+        if (response) {
+            res.status(200).json({
+                ec: 200,
+                data: response
+            })
+        }
+        else {
+            res.status(500).json({
+                ec: 500,
+                message: "Something went wrong!"
+            })
+        }
+
     }
     else if (type == 2) {
         const email = req.body.email
         const response = await User.find({ email: email })
+        if (response) {
+            res.status(200).json({
+                ec: 200,
+                data: response
+            })
+        }
+        else {
+            res.status(500).json({
+                ec: 500,
+                message: "This email is already registered!"
+            })
+        }
+
     }
 
 }
@@ -159,5 +184,6 @@ const postUploadAvatars = async (req, res) => {
 
 
 module.exports = {
-    getUser, postCreateUser, getAllUsers, putEditUser, deleteUser, postUploadAvatar, postUploadAvatars
+    getUserByID, postCreateUser, getAllUsers, putEditUser, deleteUser, postUploadAvatar, postUploadAvatars,
+    getAuthenUser
 }
