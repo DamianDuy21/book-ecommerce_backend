@@ -5,14 +5,14 @@ const { uploadSingleFile, uploadMultipleFile } = require("../services/filesServi
 const getAllUsers = async (req, res) => {
     const { filter, skip, limit, sort, projection, population } = aqp(req.query);
     let response = null
-
+    console.log(filter)
     if (limit && filter.page) {
         let skip = (filter.page - 1) * limit
         delete filter.page
-        response = await User.find({ filter }).limit(limit).skip(skip).exec()
+        response = await User.find(filter).limit(limit).skip(skip).exec()
     }
     else {
-        response = await User.find({ filter })
+        response = await User.find(filter)
     }
 
     if (response) {
