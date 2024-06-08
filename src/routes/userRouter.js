@@ -1,17 +1,16 @@
 const express = require('express')
-const { getUserByID, postCreateUser, getAllUsers, putEditUser, deleteUser, postUploadAvatar, postUploadAvatars, getAuthenUser } = require('../controllers/userController')
+const { postCreateUser, getAllUsers, putEditUser, deleteUser, postUploadAvatar, postUploadAvatars, getAuthenUser } = require('../controllers/userController')
 const User = require('../middleware/models/userModel')
 const userRouter = express.Router()
 
-//get all users
-userRouter.get("/all", getAllUsers)
+
 
 //get authen user
 userRouter.get("/authen", getAuthenUser)
 
 
 //custome user
-userRouter.get("/:id", getUserByID)
+userRouter.get("/all", getAllUsers)
 userRouter.post("/", postCreateUser)
 userRouter.put("/", putEditUser)
 userRouter.delete("/", deleteUser)

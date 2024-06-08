@@ -2,22 +2,17 @@ const User = require("../middleware/models/userModel")
 const aqp = require("api-query-params")
 const { uploadSingleFile, uploadMultipleFile } = require("../services/filesService")
 
-const getUserByID = (req, res) => {
-    res.send("a user")
-}
 const getAllUsers = async (req, res) => {
-
     const { filter, skip, limit, sort, projection, population } = aqp(req.query);
     let response = null
 
     if (limit && filter.page) {
         let skip = (filter.page - 1) * limit
         delete filter.page
-        console.log(filter)
         response = await User.find({ filter }).limit(limit).skip(skip).exec()
     }
     else {
-        response = await User.find({})
+        response = await User.find({ filter })
     }
 
     if (response) {
