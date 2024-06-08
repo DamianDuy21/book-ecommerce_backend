@@ -10,7 +10,7 @@ userRouter.get("/authen", getAuthenUser)
 
 
 //custome user
-userRouter.get("/all", getAllUsers)
+userRouter.get("/", getAllUsers)
 userRouter.post("/", postCreateUser)
 userRouter.put("/", putEditUser)
 userRouter.delete("/", deleteUser)
