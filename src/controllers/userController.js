@@ -78,7 +78,8 @@ const postCreateUser = async (req, res) => {
         email: req.body.email,
         password: req.body.password,
         username: req.body.username,
-        avatar: "",
+        phone: req.body.phone,
+        avatar: req.body.avatar,
         role: "NORMAL_USER",
         lastAccess: Date.now(),
     }
@@ -102,6 +103,7 @@ const putEditUser = async (req, res) => {
             email: req.body.email,
             password: req.body.password,
             username: req.body.username,
+            phone: req.body.phone,
             role: "NORMAL_USER",
             lastAccess: Date.now(),
         }
@@ -120,6 +122,7 @@ const putEditUser = async (req, res) => {
                 email: newUser.email,
                 password: newUser.password,
                 username: newUser.username,
+                phone: newUser.phone,
                 lastAccess: newUser.lastAccess,
                 avatar: avatarURL
             })
