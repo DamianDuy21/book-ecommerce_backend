@@ -9,7 +9,8 @@ require("dotenv").config()
 
 const app = express()
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: '*',
+    credentials: true,
 }))
 const port = process.env.PORT || 8081
 const hostname = process.env.HOST_NAME || "localhost";
