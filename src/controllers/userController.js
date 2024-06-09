@@ -94,32 +94,25 @@ const postCreateUser = async (req, res) => {
 }
 const putEditUser = async (req, res) => {
     try {
-        const newUser = {
-            email: req.body.email,
-            password: req.body.password,
-            username: req.body.username,
-            phone: req.body.phone,
-            role: "NORMAL_USER",
-            lastAccess: Date.now(),
-        }
-        let avatarURL = ""
-        if (!req.files || Object.keys(req.files).length === 0) {
+        // let avatarURL = ""
+        // if (!req.files || Object.keys(req.files).length === 0) {
 
-        }
-        else {
-            let response = await uploadSingleFile(req.files.image)
-            if (response.status == "success") {
-                avatarURL = response.path
-            }
-        }
+        // }
+        // else {
+        //     let response = await uploadSingleFile(req.files.image)
+        //     if (response.status == "success") {
+        //         avatarURL = response.path
+        //     }
+        // }
         const response = await User.findOneAndUpdate({ _id: req.params.id },
             {
-                email: newUser.email,
-                password: newUser.password,
-                username: newUser.username,
-                phone: newUser.phone,
-                lastAccess: newUser.lastAccess,
-                avatar: avatarURL
+                email: req.body.email,
+                password: req.body.password,
+                username: req.body.username,
+                phone: req.body.phone,
+                avatar: req.body.avatar,
+                lastAccess: Date.now(),
+                role: "NORMAL_USER",
             })
         res.status(200).json({
             ec: 200,
@@ -157,7 +150,6 @@ const postUploadAvatar = async (req, res) => {
         const response = await uploadSingleFile(req.files.image)
         return res.send(response)
     }
-
 }
 const postUploadAvatars = async (req, res) => {
     if (!req.files || Object.keys(req.files).length === 0) {
