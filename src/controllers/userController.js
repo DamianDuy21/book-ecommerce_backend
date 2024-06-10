@@ -94,9 +94,8 @@ const postCreateUser = async (req, res) => {
 }
 const putEditUser = async (req, res) => {
     try {
-        const newUser = null
-        if (req.body.avatar) {
-            newUser = {
+        const response = await User.findOneAndUpdate({ _id: req.params.id },
+            {
                 email: req.body.email,
                 password: req.body.password,
                 username: req.body.username,
@@ -104,19 +103,7 @@ const putEditUser = async (req, res) => {
                 avatar: req.body.avatar,
                 lastAccess: Date.now(),
                 role: "NORMAL_USER",
-            }
-        }
-        else {
-            newUser = {
-                email: req.body.email,
-                password: req.body.password,
-                username: req.body.username,
-                phone: req.body.phone,
-                lastAccess: Date.now(),
-                role: "NORMAL_USER",
-            }
-        }
-        const response = await User.findOneAndUpdate({ _id: req.params.id }, newUser)
+            })
         res.status(200).json({
             ec: 200,
             data: response
