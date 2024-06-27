@@ -80,6 +80,7 @@ const postCreateUser = async (req, res) => {
         status: req.body.status,
         receiptsQuantity: 0,
         totalPay: 0,
+        description: ""
     }
     const response = await User.create(newUser)
     if (response) {
@@ -107,7 +108,8 @@ const putEditUser = async (req, res) => {
                 lastAccess: Date.now(),
                 status: req.body.status,
                 receiptsQuantity: req.body.receiptsQuantity,
-                totalPay: req.body.totalPay
+                totalPay: req.body.totalPay,
+                description: req.body.description
             })
         return res.status(200).json({
             ec: 200,

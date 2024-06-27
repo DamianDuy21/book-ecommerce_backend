@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
     status: String,
     receiptsQuantity: Number,
     totalPay: Number,
+    description: String,
 }, {
     timestamps: true
 })
