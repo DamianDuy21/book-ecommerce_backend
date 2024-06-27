@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     role: String,
     avatar: String,
     lastAccess: String,
+    status: String,
 }, {
     timestamps: true
 })

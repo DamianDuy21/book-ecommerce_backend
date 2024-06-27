@@ -3,7 +3,10 @@ const cors = require('cors')
 const configStaticFiles = require('./config/staticFiles');
 const userRouter = require('./routes/userRouter');
 const connection = require('./config/database');
-const fileUpload = require("express-fileupload")
+const fileUpload = require("express-fileupload");
+const productRouter = require('./routes/productRouter');
+const categoryRouter = require('./routes/categoryRouter');
+const receiptRouter = require('./routes/receiptRouter');
 require("dotenv").config()
 
 
@@ -26,6 +29,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload())
 
 app.use('/v1/api/user', userRouter);
+app.use('/v1/api/product', productRouter);
+app.use('/v1/api/category', categoryRouter);
+app.use('/v1/api/receipt', receiptRouter);
 
 
 //test connection

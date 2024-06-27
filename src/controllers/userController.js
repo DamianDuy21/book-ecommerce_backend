@@ -9,22 +9,22 @@ const getAllUsers = async (req, res) => {
     if (limit && filter.page) {
         let skip = (filter.page - 1) * limit
         delete filter.page
-        response = await User.find(filter).limit(limit).skip(skip).exec()
+        response = await User.find(filter).limit(limit).skip(skip).sort(sort).exec()
     }
     else {
-        response = await User.find(filter)
+        response = await User.find(filter).sort(sort)
     }
 
     if (response) {
-        res.status(200).json({
+        return res.status(200).json({
             ec: 200,
             data: response
         })
     }
     else {
-        res.status(500).json({
+        return res.status(500).json({
             ec: 500,
-            data: "Something went wrong!"
+            data: "Something went wrong while getting users!"
         })
     }
 
@@ -36,13 +36,13 @@ const getAuthenUser = async (req, res) => {
         const password = filter.password
         const response = await User.find({ email: email, password: password })
         if (response) {
-            res.status(200).json({
+            return res.status(200).json({
                 ec: 200,
                 data: response
             })
         }
         else {
-            res.status(500).json({
+            return res.status(500).json({
                 ec: 500,
                 message: "Something went wrong!"
             })
@@ -53,13 +53,13 @@ const getAuthenUser = async (req, res) => {
         const email = filter.email
         const response = await User.find({ email: email })
         if (response) {
-            res.status(200).json({
+            return res.status(200).json({
                 ec: 200,
                 data: response
             })
         }
         else {
-            res.status(500).json({
+            return res.status(500).json({
                 ec: 500,
                 message: "This email is already registered!"
             })
@@ -77,18 +77,19 @@ const postCreateUser = async (req, res) => {
         avatar: req.body.avatar,
         role: "NORMAL_USER",
         lastAccess: Date.now(),
+        status: req.body.status
     }
     const response = await User.create(newUser)
     if (response) {
-        res.status(200).json({
+        return res.status(200).json({
             ec: 200,
             data: response
         })
     }
     else {
-        res.status(500).json({
+        return res.status(500).json({
             ec: 500,
-            data: "Something went wrong!"
+            message: "Something went wrong!"
         })
     }
 }
@@ -103,13 +104,14 @@ const putEditUser = async (req, res) => {
                 avatar: req.body.avatar,
                 lastAccess: Date.now(),
                 role: "NORMAL_USER",
+                status: req.body.status
             })
-        res.status(200).json({
+        return res.status(200).json({
             ec: 200,
             data: response
         })
     } catch (err) {
-        res.status(500).json({
+        return res.status(500).json({
             ec: 500,
             message: err
         })
@@ -119,13 +121,13 @@ const putEditUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     const response = await User.delete({ _id: req.body._id })
     if (response) {
-        res.status(200).json({
+        return res.status(200).json({
             ec: 200,
             data: response
         })
     }
     else {
-        res.status(500).json({
+        return res.status(500).json({
             ec: 500,
             data: "Something went wrong!"
         })
