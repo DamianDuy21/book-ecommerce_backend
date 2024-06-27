@@ -76,8 +76,10 @@ const postCreateUser = async (req, res) => {
         phone: req.body.phone,
         avatar: req.body.avatar,
         role: "NORMAL_USER",
-        lastAccess: Date.now(),
-        status: req.body.status
+        lastAccess: "",
+        status: req.body.status,
+        receiptsQuantity: 0,
+        totalPay: 0,
     }
     const response = await User.create(newUser)
     if (response) {
@@ -103,8 +105,9 @@ const putEditUser = async (req, res) => {
                 phone: req.body.phone,
                 avatar: req.body.avatar,
                 lastAccess: Date.now(),
-                role: "NORMAL_USER",
-                status: req.body.status
+                status: req.body.status,
+                receiptsQuantity: req.body.receiptsQuantity,
+                totalPay: req.body.totalPay
             })
         return res.status(200).json({
             ec: 200,

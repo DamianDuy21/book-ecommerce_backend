@@ -10,6 +10,8 @@ const userSchema = new mongoose.Schema({
     avatar: String,
     lastAccess: String,
     status: String,
+    receiptsQuantity: Number,
+    totalPay: Number,
 }, {
     timestamps: true
 })
