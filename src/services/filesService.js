@@ -1,6 +1,6 @@
 const path = require("path")
 const uploadSingleFile = async (fileObject) => {
-    let uploadPath = path.resolve(__dirname, `./public/images/avatar`)
+    let uploadPath = path.resolve(__dirname, `../public/images/avatar`)
     //get the .jpg
     let extName = path.extname(fileObject.name)
 
@@ -26,7 +26,7 @@ const uploadSingleFile = async (fileObject) => {
 }
 const uploadMultipleFile = async (fileArray) => {
     try {
-        let uploadPath = path.resolve(__dirname, `./public/images/avatar`)
+        let uploadPath = path.resolve(__dirname, `../public/images/avatar`)
         let resultArr = []
         let countSuccess = 0
         for (let i = 0; i < fileArray.length; i++) {
