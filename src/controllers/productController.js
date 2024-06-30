@@ -102,9 +102,35 @@ const postCreateProduct = async (req, res) => {
         })
     }
 }
-
+const putEditProduct = async (req, res) => {
+    try {
+        const response = await Product.findOneAndUpdate({ _id: req.params.id },
+            {
+                name: req.body.name,
+                postedBy: req.body.postedBy,
+                price: req.body.price,
+                thumbnail: req.body.thumbnail,
+                image: req.body.image,
+                description: req.body.description,
+                discount: req.body.discount,
+                category: req.body.category,
+                author: req.body.author,
+                sold: req.body.sold
+            }
+        )
+        return res.status(200).json({
+            ec: 200,
+            data: response
+        })
+    } catch (err) {
+        return res.status(500).json({
+            ec: 500,
+            message: err
+        })
+    }
+}
 
 
 module.exports = {
-    getProductsByRequest, postCreateProduct, getProductsRelated
+    getProductsByRequest, postCreateProduct, getProductsRelated, putEditProduct
 }
