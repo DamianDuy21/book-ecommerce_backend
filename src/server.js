@@ -3,7 +3,8 @@ const cors = require('cors')
 const configStaticFiles = require('./config/staticFiles');
 const userRouter = require('./routes/userRouter');
 const connection = require('./config/database');
-const fileUpload = require("express-fileupload");
+// const fileUpload = require("express-fileupload");
+const bodyParser = require("body-parser");
 const productRouter = require('./routes/productRouter');
 const categoryRouter = require('./routes/categoryRouter');
 const receiptRouter = require('./routes/receiptRouter');
@@ -26,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //config middleware
-app.use(fileUpload())
+// app.use(fileUpload())
 
 app.use('/v1/api/user', userRouter);
 app.use('/v1/api/product', productRouter);
@@ -41,7 +42,6 @@ app.use('/v1/api/receipt', receiptRouter);
         app.listen(port, hostname, () => {
             console.log(`Example app listening on ${hostname}, port ${port}`)
         })
-
     }
     catch (error) {
         console.log("Error connection:", error)
