@@ -1,34 +1,52 @@
-const express = require('express')
-const { postCreateUser, getAllUsers, putEditUser, deleteUser, postUploadAvatar, postUploadAvatars, getAuthenUser } = require('../controllers/userController')
-const { initializeApp } = require('firebase/app');
-const { getStorage, ref, getDownloadURL, uploadBytesResumable } = require('firebase/storage');
-const multer = require('multer');
-const firebaseConfig = require('../config/firebase');
-const userRouter = express.Router()
+const express = require("express");
+const {
+  postCreateUser,
+  getAllUsers,
+  putEditUser,
+  deleteUser,
+  postUploadAvatar,
+  postUploadAvatars,
+  getAuthenUser,
+  getAuthenToken,
+} = require("../controllers/userController");
+const { initializeApp } = require("firebase/app");
+const {
+  getStorage,
+  ref,
+  getDownloadURL,
+  uploadBytesResumable,
+} = require("firebase/storage");
+const multer = require("multer");
+const firebaseConfig = require("../config/firebase");
+const jwtMiddleWare = require("../middleware/jwt/jwtMiddleWare");
+const userRouter = express.Router();
 
 initializeApp(firebaseConfig);
 const storage = getStorage();
 const upload = multer({ storage: multer.memoryStorage() });
 
 const giveCurrentDateTime = () => {
-    const today = new Date();
-    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    const dateTime = date + ' ' + time;
-    return dateTime;
-}
+  const today = new Date();
+  const date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  const time =
+    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  const dateTime = date + " " + time;
+  return dateTime;
+};
 //get authen user
-userRouter.get("/authen", getAuthenUser)
 
+userRouter.get("/authen", getAuthenUser);
+userRouter.get("/authenToken", jwtMiddleWare, getAuthenToken);
 
 //custome user
-userRouter.get("/", getAllUsers)
-userRouter.post("/", postCreateUser)
-userRouter.put("/:id", putEditUser)
-userRouter.delete("/", deleteUser)
+userRouter.get("/", getAllUsers);
+userRouter.post("/", postCreateUser);
+userRouter.put("/:id", jwtMiddleWare, putEditUser);
+userRouter.delete("/", jwtMiddleWare, deleteUser);
 
 //upload avatar
-userRouter.post("/avatar", postUploadAvatar)
+userRouter.post("/avatar", jwtMiddleWare, postUploadAvatar);
 // userRouter.post("/avatar", upload.single("image"), async (req, res) => {
 //     try {
 //         if (!req.file) {
@@ -89,5 +107,4 @@ userRouter.post("/avatar", postUploadAvatar)
 //     }
 // })
 
-
-module.exports = userRouter
+module.exports = userRouter;
